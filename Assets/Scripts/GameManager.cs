@@ -43,8 +43,16 @@ public class GameManager : MonoBehaviour
     public Tile GroundSprite;
 
     //Score
-    public int _score;
+    public int _score = 0;
     public TextMeshProUGUI ScoreText;
+
+    //Timer
+    public float _timer = 0;
+    public TextMeshProUGUI TimerText;
+
+    //Lose Win
+    public GameObject LoseUI;
+    public GameObject WinUI;
 
     private void Start()
     {
@@ -60,6 +68,7 @@ public class GameManager : MonoBehaviour
         }
 
         ScoreText.text = "0";
+        TimerText.text = "0";
         DropPuyo();
     }
 
@@ -67,6 +76,20 @@ public class GameManager : MonoBehaviour
     {
         Puyo _puyo = _currentPuyo.GetComponent<Puyo>();
         Vector3 _puyoPos = _currentPuyo.transform.position;
+
+        if (_timer <= 60)
+        {
+            _timer += Time.deltaTime;
+            TimerText.text = ((int)_timer).ToString();
+        }
+        else if (_score < 50)
+        {
+            LoseUI.SetActive(true);
+        }
+        else if (_score >= 50)
+        {
+            WinUI.SetActive(true);
+        }
 
         if (_puyo.Finish == false)
         {

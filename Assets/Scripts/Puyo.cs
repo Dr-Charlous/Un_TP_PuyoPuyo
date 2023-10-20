@@ -37,7 +37,7 @@ public class Puyo : MonoBehaviour
 
             Finish = true;
 
-            if (EndFinish == false)
+            if (EndFinish == false && GameManager.Instance._timer <= 60)
             {
                 GameManager.Instance.DropPuyo();
                 EndFinish = true;
