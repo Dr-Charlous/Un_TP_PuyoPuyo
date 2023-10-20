@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5849958238694215666}
   - component: {fileID: 1946450965722767762}
   m_Layer: 0
-  m_Name: Puyo
+  m_Name: PuyoGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 637309762, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  m_Sprite: {fileID: -1524494998, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,4 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e55a9753b21f5b4385b48c0978f5232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  color: 2
+  Finish: 0

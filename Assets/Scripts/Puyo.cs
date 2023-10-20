@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class Puyo : MonoBehaviour
 {
+    public enum Color
+    {
+        Red,
+        Blue,
+        Green,
+        Yellow,
+        Purple,
+        Pink,
+        White
+    }
+
+    public Color color;
     public bool Finish = false;
 
-    public void Fall(int x, int y, int height)
+    public void Fall(int x, int y, int width, int height)
     {
         if (y + 1 < height && GameManager.Instance.Grid[x, y + 1] == null)
         {
@@ -16,6 +28,8 @@ public class Puyo : MonoBehaviour
         }
         else if (Finish == false)
         {
+            GameManager.Instance.ComboCheck(x, y, width, height, color);
+
             GameManager.Instance.DropPuyo(GameManager.Instance.Time);
             Finish = true;
         }
@@ -34,7 +48,7 @@ public class Puyo : MonoBehaviour
     public IEnumerator Falling(float _time)
     {
         yield return new WaitForSeconds(_time);
-        Fall((int)transform.position.x, -(int)transform.position.y, GameManager.Instance.SizeY);
+        Fall((int)transform.position.x, -(int)transform.position.y, GameManager.Instance.SizeX, GameManager.Instance.SizeY);
         StartCoroutine(Falling(_time));
     }
 }
