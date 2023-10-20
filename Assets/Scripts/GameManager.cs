@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public Tilemap TileMap;
     public Tile GroundSprite;
+    public GameObject _currentPuyo;
 
     private void Start()
     {
@@ -44,10 +45,29 @@ public class GameManager : MonoBehaviour
         DropPuyo(Time);
     }
 
+    public void Update()
+    {
+        Puyo _puyo = _currentPuyo.GetComponent<Puyo>();
+        Vector3 _puyoPos = _currentPuyo.transform.position;
+
+        if (_puyo.Finish == false)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && _puyoPos.x > 0)
+            {
+                _puyo.Move((int)_puyoPos.x, (int)_puyoPos.x - 1, -(int)_puyoPos.y, SizeX);
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow) && _puyoPos.x < GameManager.Instance.SizeX)
+            {
+                _puyo.Move((int)_puyoPos.x, (int)_puyoPos.x + 1, -(int)_puyoPos.y, SizeX);
+            }
+        }
+    }
+
     public void DropPuyo(float _time)
     {
-        GameObject _object = Instantiate(PuyoPrefab, new Vector3Int(3, 0), Quaternion.identity, PuyoParent);
-        Grid[3, 0] = _object;
-        StartCoroutine(_object.GetComponent<Puyo>().Falling(1));
+        _currentPuyo = Instantiate(PuyoPrefab, new Vector3Int(3, 0), Quaternion.identity, PuyoParent);
+        Grid[3, 0] = _currentPuyo;
+        StartCoroutine(_currentPuyo.GetComponent<Puyo>().Falling(1));
     }
 }
