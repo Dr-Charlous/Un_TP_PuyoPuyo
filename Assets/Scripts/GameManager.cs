@@ -26,8 +26,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] PuyoPrefab;
     public Transform PuyoParent;
+    public float PuyoFallSpeed = 0.2f;
 
-    public float Time = 10;
+    public int _comboCount;
 
     public Tilemap TileMap;
     public Tile GroundSprite;
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        DropPuyo(Time);
+        DropPuyo();
     }
 
     public void Update()
@@ -68,72 +69,51 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DropPuyo(float _time)
+    public void DropPuyo()
     {
         int randomNumber = Random.Range(0, PuyoPrefab.Length);
         _currentPuyo = Instantiate(PuyoPrefab[randomNumber], new Vector3Int(3, 0), Quaternion.identity, PuyoParent);
         Grid[3, 0] = _currentPuyo;
-        StartCoroutine(_currentPuyo.GetComponent<Puyo>().Falling(0.2f));
+        StartCoroutine(_currentPuyo.GetComponent<Puyo>().Falling(PuyoFallSpeed));
     }
 
-    public void ComboCheck(int x, int y, int width, int height, Puyo.Color color)
+    public int ComboCheck(int x, int y, int width, int height, Puyo.Color color, int iteration)
     {
-        int _trueNumber = 0;
-
-        if (x < width && x > 0 && y > 0 && y < height)
+        if (x < width && x >= 0 && y > 0 && y < height)
         {
             if (Grid[x, y] != null)
             {
                 if (GridCombo[x, y] == false && color == Grid[x, y].GetComponent<Puyo>().color)
                 {
                     GridCombo[x, y] = true;
-                    _trueNumber++;
+                    iteration++;
 
-                    ComboCheck(x + 1, y, width, height, color);
-                    ComboCheck(x - 1, y, width, height, color);
-                    ComboCheck(x, y + 1, width, height, color);
-                    ComboCheck(x, y - 1, width, height, color);
+                    iteration = ComboCheck(x + 1, y, width, height, color, iteration);
+                    iteration = ComboCheck(x - 1, y, width, height, color, iteration);
+                    iteration = ComboCheck(x, y + 1, width, height, color, iteration);
+                    iteration = ComboCheck(x, y - 1, width, height, color, iteration);
                 }
             }
         }
-
-        if (_trueNumber >= 3)
-        {
-            Combo();
-        }
-        else
-        {
-            foreach (var item in GridCombo)
-            {
-                item = false;
-            }
-        }
+        return iteration;
     }
 
-    public void Combo()
+    public void Combo(int _iteration)
     {
-        int numbers = 0;
-
-        foreach (var item in GridCombo)
+        for (int y = 0; y < SizeY; y++)
         {
-            if (item == true)
+            for (int x = 0; x < SizeX; x++)
             {
-                numbers++;
-            }
-        }
-
-        if (numbers >= 4)
-        {
-            for (int y = 0; y < SizeY; y++)
-            {
-                for (int x = 0; x < SizeX; x++)
+                if (GridCombo[x, y] == true)
                 {
-                    if (GridCombo[x, y] == true)
+                    if (_iteration >= 4)
                     {
                         Destroy(Grid[x, y]);
                         Grid[x, y] = null;
-                        GridCombo[x, y] = false;
+                        _comboCount++;
                     }
+
+                    GridCombo[x, y] = false;
                 }
             }
         }

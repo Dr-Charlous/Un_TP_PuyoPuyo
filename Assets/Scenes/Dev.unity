@@ -400,13 +400,9 @@ MonoBehaviour:
   PuyoPrefab:
   - {fileID: 1581015056363411654, guid: ff2d0e52a730623459d3b841b468c81f, type: 3}
   - {fileID: 1581015056363411654, guid: b36eecae954d92042bbcc84a67d7c0fd, type: 3}
-  - {fileID: 1581015056363411654, guid: 8854b8638f3a59049a034711ca860915, type: 3}
-  - {fileID: 1581015056363411654, guid: d6dbf9124991b934e88a7ad01834191f, type: 3}
-  - {fileID: 1581015056363411654, guid: 09da8c89c864e9c45bdcaacf56e7a4d6, type: 3}
-  - {fileID: 1581015056363411654, guid: 49b6ae59989b0b24784d08a8716b0f1d, type: 3}
-  - {fileID: 1581015056363411654, guid: a196cbd8cd48fd440b94a1897f93b0e5, type: 3}
   PuyoParent: {fileID: 197698525}
-  Time: 10
+  PuyoFallSpeed: 0.2
+  _comboCount: 0
   TileMap: {fileID: 187119446}
   GroundSprite: {fileID: 11400000, guid: 25c7605e8120143418a6c4564ff2eebd, type: 2}
   _currentPuyo: {fileID: 0}

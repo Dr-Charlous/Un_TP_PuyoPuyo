@@ -17,6 +17,8 @@ public class Puyo : MonoBehaviour
 
     public Color color;
     public bool Finish = false;
+    public bool EndFinish = false;
+    public int iteration = 0;
 
     public void Fall(int x, int y, int width, int height)
     {
@@ -25,13 +27,21 @@ public class Puyo : MonoBehaviour
             GameManager.Instance.Grid[x, y] = null;
             GameManager.Instance.Grid[x, y + 1] = this.gameObject;
             transform.position = new Vector3Int(x, -y - 1);
+            Finish = false;
         }
         else if (Finish == false)
         {
-            GameManager.Instance.ComboCheck(x, y, width, height, color);
+            iteration = GameManager.Instance.ComboCheck(x, y, width, height, color, iteration);
+            GameManager.Instance.Combo(iteration);
+            iteration = 0;
 
-            GameManager.Instance.DropPuyo(GameManager.Instance.Time);
             Finish = true;
+
+            if (EndFinish == false)
+            {
+                GameManager.Instance.DropPuyo();
+                EndFinish = true;
+            }
         }
     }
 
@@ -47,8 +57,8 @@ public class Puyo : MonoBehaviour
 
     public IEnumerator Falling(float _time)
     {
-        yield return new WaitForSeconds(_time);
         Fall((int)transform.position.x, -(int)transform.position.y, GameManager.Instance.SizeX, GameManager.Instance.SizeY);
+        yield return new WaitForSeconds(_time);
         StartCoroutine(Falling(_time));
     }
 }
