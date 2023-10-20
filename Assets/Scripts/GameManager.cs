@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -19,20 +20,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Grids Setup
     public int SizeX = 6;
     public int SizeY = 13;
     public GameObject[,] Grid;
     public bool[,] GridCombo;
 
+    //Puyos
     public GameObject[] PuyoPrefab;
     public Transform PuyoParent;
     public float PuyoFallSpeed = 0.2f;
+    public GameObject _currentPuyo;
 
+    //Combos
     public int _comboCount;
+    public float _timerCombo;
+    public GameObject SunPrefab;
+    public bool _isRunningCoroutine;
 
+    //Tiles
     public Tilemap TileMap;
     public Tile GroundSprite;
-    public GameObject _currentPuyo;
+
+    //Score
+    public int _score;
+    public TextMeshProUGUI ScoreText;
 
     private void Start()
     {
@@ -47,6 +59,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        ScoreText.text = "0";
         DropPuyo();
     }
 
@@ -117,5 +130,36 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        if (_iteration >= 4)
+        {
+            _comboCount += 1 - _iteration;
+            _score += _iteration * 2;
+            ScoreText.text = _score.ToString();
+
+            if (_isRunningCoroutine == false)
+            {
+                StartCoroutine(ComboFeedBackTimer(_comboCount, _iteration));
+            }
+        }
+    }
+
+    IEnumerator ComboFeedBackTimer(int comboCountInit, int iterations)
+    {
+        _isRunningCoroutine = true;
+
+        yield return new WaitForSeconds(PuyoFallSpeed * 2);
+
+        if (comboCountInit != _comboCount)
+        {
+            GameObject sun = Instantiate(SunPrefab, new Vector3Int(-4, -(int)(SizeY / 2f)), Quaternion.identity);
+            _score += iterations * (_comboCount - comboCountInit) / 4;
+            ScoreText.text = _score.ToString();
+
+            yield return new WaitForSeconds(PuyoFallSpeed * 4);
+            Destroy(sun);
+        }
+
+        _isRunningCoroutine = false;
     }
 }
