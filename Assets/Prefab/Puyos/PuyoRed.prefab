@@ -97,4 +97,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e55a9753b21f5b4385b48c0978f5232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  color: 0
+  spritesStates:
+  - {fileID: 637309762, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -541338280, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 541532834, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -1931640720, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -99642982, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 120425078, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 1170637474, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -723174438, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -921393537, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 1111356014, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 1357977887, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -822489857, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 1633980345, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 297726717, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -250012622, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 1829962053, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  Finish: 0
+  EndFinish: 0
+  iteration: 0

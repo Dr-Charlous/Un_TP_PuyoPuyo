@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5849958238694215666}
   - component: {fileID: 1946450965722767762}
   m_Layer: 0
-  m_Name: PuyoGreen
+  m_Name: PuyoPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1524494998, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  m_Sprite: {fileID: 990845714, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,5 +97,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e55a9753b21f5b4385b48c0978f5232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: 2
+  color: 4
+  spritesStates:
+  - {fileID: 990845714, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -1696784568, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 818587106, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 809717312, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 1225650545, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -704244484, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 1340864420, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -34525790, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 947502250, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -977186269, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -1302745839, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -1336918474, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: 947502250, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -943340786, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -1895789825, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
+  - {fileID: -1374828292, guid: 9bdfc46e230ae3547872548d8490c617, type: 3}
   Finish: 0
+  EndFinish: 0
+  iteration: 0

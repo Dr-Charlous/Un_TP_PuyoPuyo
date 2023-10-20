@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
+    #region singleton
     public static GameManager Instance { get; private set; }
     private void Awake()
     {
@@ -19,40 +20,52 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
+    #endregion
 
+    #region Variables
+    [Header("Grids")]
     //Grids Setup
     public int SizeX = 6;
     public int SizeY = 13;
     public GameObject[,] Grid;
     public bool[,] GridCombo;
 
+    [Header("Puyos ")]
     //Puyos
     public GameObject[] PuyoPrefab;
     public Transform PuyoParent;
     public float PuyoFallSpeed = 0.2f;
-    public GameObject _currentPuyo;
+    private GameObject _currentPuyo;
 
+    [Header("Combos")]
     //Combos
     public int _comboCount;
     public float _timerCombo;
     public GameObject SunPrefab;
     public bool _isRunningCoroutine;
 
+    [Header("Tiles")]
     //Tiles
-    public Tilemap TileMap;
-    public Tile GroundSprite;
+    [SerializeField] private Tilemap TileMap;
+    [SerializeField] private Tile GroundSprite;
 
+    [Header("Score")]
     //Score
     public int _score = 0;
-    public TextMeshProUGUI ScoreText;
+    public int _scoreResult = 15;
+    [SerializeField] private TextMeshProUGUI ScoreText;
 
+    [Header("Timer")]
     //Timer
     public float _timer = 0;
-    public TextMeshProUGUI TimerText;
+    [SerializeField] private TextMeshProUGUI TimerText;
 
+    [Header("Lose / Win")]
     //Lose Win
     public GameObject LoseUI;
-    public GameObject WinUI;
+    [SerializeField] private GameObject WinUI;
+    public bool GameFinish = false;
+    #endregion
 
     private void Start()
     {
@@ -69,7 +82,7 @@ public class GameManager : MonoBehaviour
 
         ScoreText.text = "0";
         TimerText.text = "0";
-        DropPuyo();
+        SpawnPuyo();
     }
 
     public void Update()
@@ -77,20 +90,25 @@ public class GameManager : MonoBehaviour
         Puyo _puyo = _currentPuyo.GetComponent<Puyo>();
         Vector3 _puyoPos = _currentPuyo.transform.position;
 
-        if (_timer <= 60)
+        //Chrono / Win / Lose
+        if (_timer <= 60 && GameFinish == false)
         {
             _timer += Time.deltaTime;
             TimerText.text = ((int)_timer).ToString();
         }
-        else if (_score < 50)
+        
+        if ((_timer > 60 && _score < _scoreResult) || GameFinish == true)
         {
             LoseUI.SetActive(true);
+            StopAllCoroutines();
         }
-        else if (_score >= 50)
+        else if (_timer > 60 && _score >= _scoreResult)
         {
             WinUI.SetActive(true);
+            StopAllCoroutines();
         }
 
+        //Move puyo
         if (_puyo.Finish == false)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) && _puyoPos.x > 0)
@@ -105,7 +123,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DropPuyo()
+    public void SpawnPuyo()
     {
         int randomNumber = Random.Range(0, PuyoPrefab.Length);
         _currentPuyo = Instantiate(PuyoPrefab[randomNumber], new Vector3Int(3, 0), Quaternion.identity, PuyoParent);
@@ -113,6 +131,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_currentPuyo.GetComponent<Puyo>().Falling(PuyoFallSpeed));
     }
 
+    #region Combo
     public int ComboCheck(int x, int y, int width, int height, Puyo.Color color, int iteration)
     {
         if (x < width && x >= 0 && y > 0 && y < height)
@@ -185,4 +204,5 @@ public class GameManager : MonoBehaviour
 
         _isRunningCoroutine = false;
     }
+    #endregion
 }
